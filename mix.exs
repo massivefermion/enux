@@ -1,6 +1,8 @@
 defmodule Enux.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/massivefermion/enux"
+
   def project do
     [
       app: :enux,
@@ -8,12 +10,14 @@ defmodule Enux.MixProject do
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      source_url: "https://github.com/massivefermion/enux",
+      source_url: @source_url,
       description: description(),
       package: package(),
       docs: [
       	main: "Enux",
-      	api_reference: false
+      	api_reference: true,
+      	source_url: @source_url,
+      	source_ref: "main"
       ]
     ]
   end
@@ -28,7 +32,7 @@ defmodule Enux.MixProject do
       licenses: ["Apache-2.0"],
       files: ["lib", "mix.exs", "README*", "LICENSE"],
       maintainers: ["Shayan Javani"],
-      links: %{"GitHub" => "https://github.com/massivefermion/enux"}
+      links: %{"GitHub" => @source_url}
     ]
   end
 
