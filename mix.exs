@@ -12,7 +12,8 @@ defmodule Enux.MixProject do
       description: description(),
       package: package(),
       docs: [
-      	main: "Enux"
+      	main: "Enux",
+      	api_reference: false
       ]
     ]
   end

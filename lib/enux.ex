@@ -8,7 +8,7 @@ defmodule Enux do
   ```
   import Config
   env = Enux.load()
-  config: :otp_app, env
+  config :otp_app, env
   ```
   When you start your application, you can access your configuration variables using `Applicatoin.get_env`.
   If you need to url encode your configuration values, just pass `url_encoded: true` to `Enux.load`.
