@@ -10,12 +10,15 @@ defmodule Enux.MixProject do
       deps: deps(),
       source_url: "https://github.com/massivefermion/enux",
       description: description(),
-      package: package()
+      package: package(),
+      docs: [
+      	main: "Enux"
+      ]
     ]
   end
 
   defp description() do
-    "A module for reading variables from .env style configuration files and injecting them into your application."
+    "A module for reading environmental variables from .env style configuration files and injecting them into your application."
   end
 
   defp package do

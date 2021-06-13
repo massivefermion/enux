@@ -15,7 +15,7 @@ defmodule Enux do
   """
 
   @doc """
-  reads the variables in "config/.env" and returns a formatted keyword list.
+  reads the variables in `config/.env` and returns a formatted keyword list.
   all values are loaded as they are.
   """
   def load() do
@@ -23,7 +23,7 @@ defmodule Enux do
   end
 
   @doc """
-  reads the variables in "config/.env" and returns a formatted keyword list
+  reads the variables in `config/.env` and returns a formatted keyword list
   """
   def load(opts) when is_list(opts) do
     File.stream!("config/.env", [], :line) |> pipeline(opts)
