@@ -1,11 +1,10 @@
 # Enux
 
-**TODO: Add description**
+A module for reading environmental variables from .env style configuration files and injecting them into your application.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `enux` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `enux` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -15,7 +14,4 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/enux](https://hexdocs.pm/enux).
-
+Documentation can be found at [https://hexdocs.pm/enux](https://hexdocs.pm/enux).
