@@ -14,16 +14,16 @@ defmodule Enux.MixProject do
       description: description(),
       package: package(),
       docs: [
-      	main: "Enux",
-      	api_reference: true,
-      	source_url: @source_url,
-      	source_ref: "main"
+        main: "Enux",
+        api_reference: true,
+        source_url: @source_url,
+        source_ref: "main"
       ]
     ]
   end
 
   defp description() do
-    "A module for reading environmental variables from .env style configuration files and injecting them into your application."
+    "dynamic configuration management by importing your environment variables from .env style configuration files at runtime. You don't need to compile your code again."
   end
 
   defp package do
