@@ -38,16 +38,31 @@ defmodule Enux do
 
   defp pipeline(content, opts) do
     content
+    |> IO.inspect()
     |> Enum.filter(fn l -> String.trim(l) != "" end)
-    |> Enum.map(fn l -> Regex.run(~r/(?<k>[A-Za-z_\s]+)=(?<v>.*)/, l, capture: :all_but_first) end)
+    |> IO.inspect()
+    |> Enum.map(fn l ->
+      Regex.run(~r/(?<k>[A-Za-z0-9_\s]+)=(?<v>.*)/, l, capture: :all_but_first)
+    end)
+    |> IO.inspect()
     |> Enum.map(fn l -> l |> Enum.map(fn i -> String.trim(i) end) end)
-    |> Enum.map(fn [k, v] -> {k |> String.to_atom(), v |> url_encode_conditional(opts)} end)
+    |> IO.inspect()
+    |> Enum.map(fn [k, v] ->
+      {k |> handle_number() |> String.to_atom(), v |> url_encode_conditional(opts)}
+    end)
   end
 
   defp url_encode_conditional(value, opts) when is_binary(value) and is_list(opts) do
     case opts |> Keyword.get(:url_encoded, false) do
       true -> value |> URI.encode()
       false -> value
+    end
+  end
+
+  defp handle_number(key) when is_binary(key) do
+    case key |> String.first() |> Integer.parse() do
+      {_, ""} -> throw("#{key} starts with a digit")
+      :error -> key
     end
   end
 end
