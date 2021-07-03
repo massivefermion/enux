@@ -9,7 +9,7 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 def deps do
   [
-    {:enux, "~> 0.1.0"}
+    {:enux, "~> 0.4.0"}
   ]
 end
 ```
