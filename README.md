@@ -1,6 +1,6 @@
 # Enux
 
-A module for reading environmental variables from .env style configuration files and injecting them into your application.
+A module for reading environmental variables from env and json style configuration files and injecting them into your application.
 
 ## Installation
 
