@@ -12,6 +12,7 @@ defmodule Enux do
   ```
   When you start your application, you can access your configuration variables using `Applicatoin.get_env`.
   If you need to url encode your configuration values, just pass `url_encoded: true` to `Enux.load`.
+  You should have either poison or jason in your dependencies if you want to use json files.
   """
 
   @doc """

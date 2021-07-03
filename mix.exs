@@ -23,7 +23,7 @@ defmodule Enux.MixProject do
   end
 
   defp description() do
-    "dynamic configuration management by importing your environment variables from .env style configuration files at runtime.
+    "dynamic configuration management by importing your environment variables from env and json style configuration files at runtime.
 
     you don't need to compile your code again after changing a variable."
   end
