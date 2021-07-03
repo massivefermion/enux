@@ -9,7 +9,12 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 def deps do
   [
-    {:enux, "~> 0.5.0"}
+    {:enux, "~> 0.5.0"},
+
+    # if you want to load json files, you should have either this
+    {:jason, "~> 1.2"},
+    # or this
+    {:poison, "~> 4.0"}
   ]
 end
 ```
