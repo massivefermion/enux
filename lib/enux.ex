@@ -40,10 +40,10 @@ defmodule Enux do
   config :otp_app, env1
 
   env2 = Enux.load("config/two.json")
-  config :otp_app, env2
+  config :otp_app, :two, env2
   ```
 
-  Another way of using Enux is using the autoload function which will load all `.env` and `.json` files in your `config` directory.
+  Another way of using Enux is using the `Enux.autoload` function which will load all `.env` and `.json` files in your `config` directory.
   it makes more sense to call this function in your `config/runtime.exs` but you can call it anywhere in your code.
 
   If you have `config/pg.env` and `config/redis.json` in your project directory, after calling `Enux.autoload`, you can access the variables
