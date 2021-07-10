@@ -46,7 +46,7 @@ defmodule Enux do
   Another way of using Enux is using the `Enux.autoload` function which will load all `.env` and `.json` files in your `config` directory.
   it makes more sense to call this function in your `config/runtime.exs` but you can call it anywhere in your code.
 
-  If you have `config/pg.env` and `config/redis.json` in your project directory, after calling `Enux.autoload`, you can access the variables
+  If you have `config/pg.env` and `config/redis.json` in your project directory, after calling `Enux.autoload(:otp_app)`, you can access the variables
   using `Application.get_env(:otp_app, :pg)` and `Application.get_env(:otp_app, :redis)`. if a file is named `.env` or `.json`, you should use
   `Application.get_env(:otp_app, :env)` or `Application.get_env(:otp_app, :json)` respectively.
   ```
@@ -70,7 +70,7 @@ defmodule Enux do
   end
 
   @doc """
-  reads the variables in the given path(could be .env or .json file) and returns a formatted keyword list
+  reads the variables in the given path(could be `.env` or `.json` file) and returns a formatted keyword list
   """
   def load(path, opts \\ []) when is_binary(path) and is_list(opts) do
     case String.split(path, ".") |> Enum.at(1) |> String.to_atom() do
@@ -81,8 +81,8 @@ defmodule Enux do
   end
 
   @doc """
-  automatically loads all .env and .json files in your `config` directory.
-  pass your projects name as an atom. you can also still pass url_encoded: true to it.
+  automatically loads all `.env` and `.json` files in your `config` directory.
+  pass your projects name as an atom. you can also still pass `url_encoded: true` to it.
   """
   def autoload(otp_app, opts \\ []) when is_atom(otp_app) and is_list(opts) do
     files =
