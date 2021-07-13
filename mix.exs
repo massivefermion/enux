@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "0.8.0",
+      version: "0.8.1",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -56,7 +56,8 @@ defmodule Enux.MixProject do
 
   defp aliases do
     [
-      gen_docs: ["cmd MIX_ENV=docs mix docs"]
+      gen_docs: ["cmd MIX_ENV=docs mix docs"],
+      publish: ["cmd MIX_ENV=docs mix hex.publish --replace"]
     ]
   end
 end

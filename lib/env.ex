@@ -5,7 +5,7 @@ defmodule Enux.Env do
   import Enux.Utils
 
   @doc """
-  decodes the content of the env file passed to it by Enux.load and format it into a keyword list
+  decodes the content of the env file passed to it by `Enux.load` and format it into a keyword list
   """
   def decode(content, opts) do
     content

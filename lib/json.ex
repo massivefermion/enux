@@ -5,7 +5,7 @@ defmodule Enux.Json do
   import Enux.Utils
 
   @doc """
-  decodes the json passed to it by Enux.load and format it into a keyword list
+  decodes the json passed to it by `Enux.load` and format it into a keyword list
   """
   def decode(content, opts) do
     decode = get_decoder()

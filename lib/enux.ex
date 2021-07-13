@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.8.0"},
+      {:enux, "~> 0.8.1"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -82,7 +82,7 @@ defmodule Enux do
 
   @doc """
   automatically loads all `.env` and `.json` files in your `config` directory.
-  pass your projects name as an atom. you can also still pass `url_encoded: true` to it.
+  pass your project's name as an atom. you can also still pass `url_encoded: true` to it.
   """
   def autoload(otp_app, opts \\ []) when is_atom(otp_app) and is_list(opts) do
     files =

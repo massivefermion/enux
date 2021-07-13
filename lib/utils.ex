@@ -14,7 +14,7 @@ defmodule Enux.Utils do
   end
 
   @doc """
-  if url_encoded: true is passed as an option to Enux.load, this function will url encode the binary values
+  if url_encoded: true is passed as an option to `Enux.load`, this function will url encode the binary values
   """
   def url_encode_conditional(value, opts)
       when is_binary(value) and is_list(opts) do
