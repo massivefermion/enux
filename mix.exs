@@ -56,8 +56,7 @@ defmodule Enux.MixProject do
 
   defp aliases do
     [
-      gen_docs: ["cmd MIX_ENV=docs mix docs"],
-      publish: ["cmd MIX_ENV=docs mix hex.publish --replace"]
+      gen_docs: ["cmd MIX_ENV=docs mix docs"]
     ]
   end
 end
