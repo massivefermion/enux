@@ -1,6 +1,7 @@
 # Enux
 
 A package for reading environmental variables from env and json style configuration files and injecting them into your application.
+you can also validate and document your environment.
 
 ## Installation
 

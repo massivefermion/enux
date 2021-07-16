@@ -27,7 +27,7 @@ defmodule Enux.MixProject do
   defp description() do
     "dynamic configuration management by importing your environment variables from env and json style configuration files at runtime.
 
-    you don't need to compile your code again after changing a variable."
+    you don't need to compile your code again after changing a variable. you can also validate and document your environment."
   end
 
   defp package do
