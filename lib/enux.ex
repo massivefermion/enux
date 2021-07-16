@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.8.1"},
+      {:enux, "~> 0.9.0"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -52,6 +52,24 @@ defmodule Enux do
   ```
   Enux.autoload(:otp_app)
   ```
+
+  You may also use `Enux.expect` to both validate and document your required environment. first you need to define a schema:
+  ```
+  schema = [
+    id: [&is_integer/1, fn id -> id > 1000 end],
+    username: [&is_binary/1, fn u -> String.length(u) > 8 end],
+    metadata: [],
+    profile: [
+      full_name: [&is_binary/1],
+      age: [&is_number/1]
+    ]
+  ]
+  ```
+  then the following line will check for compliance of your environment under `:otp_app` and `:key` with the schema defined above
+  (an empty list implies only checking for existence):
+  ```
+  Enux.expect(:otp_app, :key, schema)
+  ```
   """
 
   @doc """
@@ -84,7 +102,7 @@ defmodule Enux do
   automatically loads all `.env` and `.json` files in your `config` directory.
   pass your project's name as an atom. you can also still pass `url_encoded: true` to it.
   """
-  def autoload(otp_app, opts \\ []) when is_atom(otp_app) and is_list(opts) do
+  def autoload(app, opts \\ []) when is_atom(app) and is_list(opts) do
     files =
       File.ls!("config")
       |> Enum.map(fn f -> f |> String.split(".") end)
@@ -111,8 +129,68 @@ defmodule Enux do
                 String.split(f, ".") |> Enum.at(0) |> String.to_atom()
             end
 
-          Application.put_env(otp_app, key, kwl)
+          Application.put_env(app, key, kwl)
         end)
     end
+  end
+
+  @doc """
+  checks if the environment variables under `app` and `key` comply with the given `schema`. any non-compliance results in an error.
+  you can use this function for both validating and documenting your required environment.
+  """
+  def expect(app, key, schema) when is_atom(app) and is_atom(key) and is_list(schema) do
+    if !Keyword.keyword?(schema) do
+      throw("the third argument to Enux.expect/3 should be a keyword list")
+    end
+
+    case Application.get_env(app, key) do
+      nil ->
+        throw("environment with key #{key} does not exist")
+
+      env ->
+        check(env, schema)
+    end
+  end
+
+  defp check(env, schema, parents \\ [])
+       when is_list(env) and is_list(schema) and is_list(parents) do
+    schema
+    |> Enum.each(fn {key, sub_schema} ->
+      case env |> Keyword.get(key) do
+        nil ->
+          throw(
+            "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
+          )
+
+        value ->
+          cond do
+            Keyword.keyword?(value) ->
+              check(value, sub_schema, [key | parents])
+
+            true ->
+              check_item(value, sub_schema, [key | parents])
+          end
+      end
+    end)
+  end
+
+  defp check_item(value, conditions, parents)
+       when is_list(conditions) and is_list(parents) do
+    conditions
+    |> Enum.each(fn c ->
+      case check_item(value, c) do
+        false ->
+          throw(
+            "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"
+          )
+
+        true ->
+          nil
+      end
+    end)
+  end
+
+  defp check_item(value, condition) when is_function(condition) do
+    condition.(value)
   end
 end
