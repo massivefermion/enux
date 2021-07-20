@@ -21,7 +21,7 @@ defmodule Enux.Json do
         &Poison.decode!/1
 
       true ->
-        throw("No json decoder found")
+        raise RuntimeError, message: "No json decoder found"
     end
   end
 

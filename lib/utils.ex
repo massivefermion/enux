@@ -4,11 +4,11 @@ defmodule Enux.Utils do
   """
 
   @doc """
-  throws an error if a key starts with a digit
+  raises an error if a key starts with a digit
   """
   def handle_number(key) when is_binary(key) do
     case key |> String.first() |> Integer.parse() do
-      {_, ""} -> throw("#{key} starts with a digit")
+      {_, ""} -> raise RuntimeError, message: "#{key} starts with a digit"
       :error -> key
     end
   end

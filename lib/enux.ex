@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.9.0"},
+      {:enux, "~> 0.9.1"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -94,7 +94,7 @@ defmodule Enux do
     case String.split(path, ".") |> Enum.at(1) |> String.to_atom() do
       :env -> File.stream!(path, [], :line) |> Enux.Env.decode(opts)
       :json -> File.read!(path) |> Enux.Json.decode(opts)
-      _ -> throw("unsupported file type")
+      ext -> raise RuntimeError, message: "unsupported file type: #{ext}"
     end
   end
 
@@ -111,7 +111,7 @@ defmodule Enux do
 
     cond do
       Enum.empty?(files) ->
-        throw("There is no .env or .json file in your config directory")
+        raise RuntimeError, message: "There is no .env or .json file in your config directory"
 
       true ->
         files
@@ -140,12 +140,12 @@ defmodule Enux do
   """
   def expect(app, key, schema) when is_atom(app) and is_atom(key) and is_list(schema) do
     if !Keyword.keyword?(schema) do
-      throw("the third argument to Enux.expect/3 should be a keyword list")
+      raise ArgumentError, message: "the third argument to Enux.expect/3 should be a keyword list"
     end
 
     case Application.get_env(app, key) do
       nil ->
-        throw("environment with key #{key} does not exist")
+        raise RuntimeError, message: "environment with key #{key} does not exist"
 
       env ->
         check(env, schema)
@@ -158,9 +158,9 @@ defmodule Enux do
     |> Enum.each(fn {key, sub_schema} ->
       case env |> Keyword.get(key) do
         nil ->
-          throw(
-            "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
-          )
+          raise RuntimeError,
+            message:
+              "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
 
         value ->
           cond do
@@ -180,9 +180,9 @@ defmodule Enux do
     |> Enum.each(fn c ->
       case check_item(value, c) do
         false ->
-          throw(
-            "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"
-          )
+          raise RuntimeError,
+            message:
+              "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"
 
         true ->
           nil
