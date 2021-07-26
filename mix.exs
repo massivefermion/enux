@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "0.9.1",
+      version: "0.9.2",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
