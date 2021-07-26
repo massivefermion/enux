@@ -12,7 +12,7 @@ defmodule Enux do
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
       # or this
-      {:poison, "~> 4.0"}
+      {:poison, "~> 5.0"}
     ]
   end
   ```
