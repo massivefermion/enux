@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.9.2"},
+      {:enux, "~> 0.9.3"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -191,6 +191,13 @@ defmodule Enux do
   end
 
   defp check_item(value, condition) when is_function(condition) do
-    condition.(value)
+    case condition.(value) do
+      result when is_boolean(result) ->
+        result
+
+      _ ->
+        raise RuntimeError,
+          message: "function #{inspect(condition)} does not return a boolean"
+    end
   end
 end
