@@ -9,7 +9,12 @@ defmodule Enux.Json do
   """
   def decode(content, opts) do
     decode = get_decoder()
-    decode.(content) |> map_to_keyword_list(opts)
+    decoded = decode.(content)
+
+    cond do
+      is_map(decoded) -> decoded |> map_to_keyword_list(opts)
+      true -> decoded
+    end
   end
 
   defp get_decoder do

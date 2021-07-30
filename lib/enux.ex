@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.9.3"},
+      {:enux, "~> 0.9.4"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -139,16 +139,15 @@ defmodule Enux do
   you can use this function for both validating and documenting your required environment.
   """
   def expect(app, key, schema) when is_atom(app) and is_atom(key) and is_list(schema) do
-    if !Keyword.keyword?(schema) do
-      raise ArgumentError, message: "the third argument to Enux.expect/3 should be a keyword list"
-    end
-
     case Application.get_env(app, key) do
       nil ->
         raise RuntimeError, message: "environment with key #{key} does not exist"
 
       env ->
-        check(env, schema)
+        cond do
+          Keyword.keyword?(env) -> check(env, schema)
+          true -> check_item(env, schema, [])
+        end
     end
   end
 
