@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.9.4"},
+      {:enux, "~> 0.9.5"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -145,8 +145,15 @@ defmodule Enux do
 
       env ->
         cond do
-          Keyword.keyword?(env) -> check(env, schema)
-          true -> check_item(env, schema, [])
+          Keyword.keyword?(env) ->
+            if !Keyword.keyword?(schema) do
+              raise RuntimeError, message: "schema should be a keyword list"
+            end
+
+            check(env, schema)
+
+          true ->
+            check_item(env, schema, [])
         end
     end
   end
