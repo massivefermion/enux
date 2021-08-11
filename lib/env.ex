@@ -10,6 +10,7 @@ defmodule Enux.Env do
   def decode(content, opts) do
     content
     |> Enum.filter(fn l -> String.trim(l) != "" end)
+    |> Enum.filter(fn l -> !String.starts_with?(l, "#") end)
     |> Enum.map(fn l ->
       Regex.run(~r/(?<k>[A-Za-z0-9_\s]+)=(?<v>.*)/, l, capture: :all_but_first)
     end)
