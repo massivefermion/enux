@@ -25,6 +25,9 @@ defmodule Enux.Json do
       is_list(Application.spec(:poison)) ->
         &Poison.decode!/1
 
+      is_list(Application.spec(:jaxon)) ->
+        &Jaxon.decode!/1
+
       true ->
         raise RuntimeError, message: "No json decoder found"
     end

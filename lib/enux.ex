@@ -7,12 +7,14 @@ defmodule Enux do
   ```
   def deps do
     [
-      {:enux, "~> 0.9.7"},
+      {:enux, "~> 0.9.8"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
       # or this
-      {:poison, "~> 5.0"}
+      {:poison, "~> 5.0"},
+      # or this
+      {:jaxon, "~> 2.0"}
     ]
   end
   ```
@@ -29,7 +31,7 @@ defmodule Enux do
   When you start your application, you can access your configuration variables using `Applicatoin.get_env`.
   If you need to url encode your configuration values, just pass `url_encoded: true` to `Enux.load`.
 
-  You should have either [poison](https://hex.pm/packages/poison) or [jason](https://hex.pm/packages/jason)
+  You should have either [poison](https://hex.pm/packages/poison) or [jason](https://hex.pm/packages/jason) or [jaxon](https://hex.pm/packages/jaxon)
   in your dependencies if you want to use json files.
 
   You can load multiple files of different kinds:
