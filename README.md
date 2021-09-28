@@ -8,9 +8,9 @@ you can also validate and document your environment.
 The package can be installed by adding `enux` to your list of dependencies in `mix.exs`:
 
 ```elixir
-def deps do
+defp deps do
   [
-    {:enux, "~> 0.9.8"},
+    {:enux, "~> 0.9.9"},
 
     # if you want to load json files, you should have either this
     {:jason, "~> 1.2"},
