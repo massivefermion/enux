@@ -1,13 +1,13 @@
 defmodule Enux do
   @moduledoc """
-  A package for reading variables from env style and json configuration files and injecting them into your application.
+  Helper module to load, validate and document your app's configuration from env and json files at runtime.
 
   ## Installation
 
   ```
   defp deps do
     [
-      {:enux, "~> 0.9.9"},
+      {:enux, "~> 0.9.10"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},

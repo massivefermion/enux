@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "0.9.9",
+      version: "0.9.10",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -25,9 +25,7 @@ defmodule Enux.MixProject do
   end
 
   defp description() do
-    "dynamic configuration management by importing your environment variables from env and json style configuration files at runtime.
-
-    you don't need to compile your code again after changing a variable. you can also validate and document your environment."
+    "Helper module to load, validate and document your app's configuration from env and json files at runtime."
   end
 
   defp package do
