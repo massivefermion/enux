@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 0.9.10"},
+      {:enux, "~> 0.9.11"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.2"},
@@ -74,19 +74,22 @@ defmodule Enux do
   ```
   """
 
+  alias Enux.Env
+  alias Enux.Json
+
   @doc """
   reads the variables in `config/.env` and returns a formatted keyword list.
   all values are loaded as they are.
   """
   def load() do
-    File.stream!("config/.env", [], :line) |> Enux.Env.decode([])
+    File.stream!("config/.env", [], :line) |> Env.decode([])
   end
 
   @doc """
   reads the variables in `config/.env` and returns a formatted keyword list
   """
   def load(opts) when is_list(opts) do
-    File.stream!("config/.env", [], :line) |> Enux.Env.decode(opts)
+    File.stream!("config/.env", [], :line) |> Env.decode(opts)
   end
 
   @doc """
@@ -94,8 +97,8 @@ defmodule Enux do
   """
   def load(path, opts \\ []) when is_binary(path) and is_list(opts) do
     case String.split(path, ".") |> Enum.at(1) |> String.to_atom() do
-      :env -> File.stream!(path, [], :line) |> Enux.Env.decode(opts)
-      :json -> File.read!(path) |> Enux.Json.decode(opts)
+      :env -> File.stream!(path, [], :line) |> Env.decode(opts)
+      :json -> File.read!(path) |> Json.decode(opts)
       ext -> raise RuntimeError, message: "unsupported file type: #{ext}"
     end
   end
