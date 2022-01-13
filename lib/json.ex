@@ -17,7 +17,7 @@ defmodule Enux.Json do
     end
   end
 
-  defp get_decode_function do
+  def get_decode_function do
     cond do
       is_list(Application.spec(:jason)) ->
         &Jason.decode!/1
@@ -27,6 +27,22 @@ defmodule Enux.Json do
 
       is_list(Application.spec(:jaxon)) ->
         &Jaxon.decode!/1
+
+      is_list(Application.spec(:thoas)) ->
+        decode = &:thoas.decode/1
+
+        fn input ->
+          case decode.(input) do
+            {:ok, output} ->
+              output
+
+            {:error, error} ->
+              case is_tuple(error) do
+                true -> raise error |> elem(0) |> to_string()
+                false -> raise error |> to_string()
+              end
+          end
+        end
 
       true ->
         raise RuntimeError, message: "No json decoder found"
