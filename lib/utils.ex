@@ -8,7 +8,7 @@ defmodule Enux.Utils do
   """
   def handle_number(key) when is_binary(key) do
     case key |> String.first() |> Integer.parse() do
-      {_, ""} -> raise RuntimeError, message: "#{key} starts with a digit"
+      {_, ""} -> raise "#{key} starts with a digit"
       :error -> key
     end
   end

@@ -17,7 +17,7 @@ defmodule Enux.Json do
     end
   end
 
-  def get_decode_function do
+  defp get_decode_function do
     cond do
       is_list(Application.spec(:jason)) ->
         &Jason.decode!/1
@@ -45,7 +45,7 @@ defmodule Enux.Json do
         end
 
       true ->
-        raise RuntimeError, message: "No json decoder found"
+        raise "No json decoder found"
     end
   end
 

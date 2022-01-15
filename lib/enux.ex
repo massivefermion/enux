@@ -101,7 +101,7 @@ defmodule Enux do
     case String.split(path, ".") |> Enum.at(1) |> String.to_atom() do
       :env -> File.stream!(path, [], :line) |> Env.decode(opts)
       :json -> File.read!(path) |> Json.decode(opts)
-      ext -> raise RuntimeError, message: "unsupported file type: #{ext}"
+      ext -> raise "unsupported file type: #{ext}"
     end
   end
 
@@ -118,7 +118,7 @@ defmodule Enux do
 
     cond do
       Enum.empty?(files) ->
-        raise RuntimeError, message: "There is no .env or .json file in your config directory"
+        raise "There is no .env or .json file in your config directory"
 
       true ->
         files
@@ -148,13 +148,13 @@ defmodule Enux do
   def expect(app, key, schema) when is_atom(app) and is_atom(key) and is_list(schema) do
     case Application.get_env(app, key) do
       nil ->
-        raise RuntimeError, message: "environment with key #{key} does not exist"
+        raise "environment with key #{key} does not exist"
 
       env ->
         cond do
           Keyword.keyword?(env) ->
             if !Keyword.keyword?(schema) do
-              raise RuntimeError, message: "schema should be a keyword list"
+              raise "schema should be a keyword list"
             end
 
             check(env, schema)
@@ -171,9 +171,7 @@ defmodule Enux do
     |> Enum.each(fn {key, sub_schema} ->
       case env |> Keyword.get(key) do
         nil ->
-          raise RuntimeError,
-            message:
-              "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
+          raise "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
 
         value ->
           cond do
@@ -193,9 +191,7 @@ defmodule Enux do
     |> Enum.each(fn c ->
       case check_item(value, c) do
         false ->
-          raise RuntimeError,
-            message:
-              "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"
+          raise "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"
 
         true ->
           nil
@@ -209,8 +205,7 @@ defmodule Enux do
         result
 
       _ ->
-        raise RuntimeError,
-          message: "function #{inspect(condition)} does not return a boolean"
+        raise "function #{inspect(condition)} does not return a boolean"
     end
   end
 end
