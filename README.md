@@ -10,7 +10,7 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 defp deps do
   [
-    {:enux, "~> 0.9.14"},
+    {:enux, "~> 0.9.15"},
 
     # if you want to load json files, you should have either this
     {:jason, "~> 1.3"},
@@ -19,7 +19,9 @@ defp deps do
     # or this
     {:jaxon, "~> 2.0"}
     # or this
-    {:thoas, "~> 0.2"}
+    {:thoas, "~> 0.2"},
+    # or this
+    {:jsone, "~> 1.7"}
   ]
 end
 ```
