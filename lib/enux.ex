@@ -7,18 +7,20 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 0.9.15"},
+      {:enux, "~> 0.9.16"},
 
       # if you want to load json files, you should have either this
-      {:jason, "~> 1.3"},
+      {:jason, "~> 1.3"}
       # or this
-      {:poison, "~> 5.0"},
+      {:poison, "~> 5.0"}
       # or this
       {:jaxon, "~> 2.0"}
       # or this
-      {:thoas, "~> 0.2"},
+      {:thoas, "~> 0.2"}
       # or this
       {:jsone, "~> 1.7"}
+      # or this
+      {:jiffy, "~> 1.0"}
     ]
   end
   ```
@@ -36,7 +38,7 @@ defmodule Enux do
   If you need to url encode your configuration values, just pass `url_encoded: true` to `Enux.load`.
 
   You should have either [poison](https://hex.pm/packages/poison) or [jason](https://hex.pm/packages/jason) or [jaxon](https://hex.pm/packages/jaxon)
-  or [thoas](https://hex.pm/packages/thoas) or [jsone](https://hex.pm/packages/jsone) in your dependencies if you want to use json files.
+  or [thoas](https://hex.pm/packages/thoas) or [jsone](https://hex.pm/packages/jsone) or [jiffy](https://hex.pm/packages/jiffy)in your dependencies if you want to use json files.
 
   You can load multiple files of different kinds:
   ```
