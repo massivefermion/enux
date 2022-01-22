@@ -28,6 +28,9 @@ defmodule Enux.Json do
       is_list(Application.spec(:jaxon)) ->
         &Jaxon.decode!/1
 
+      is_list(Application.spec(:json)) ->
+        &JSON.decode!/1
+
       is_list(Application.spec(:jsone)) ->
         &:jsone.decode/1
 
