@@ -65,12 +65,14 @@ defmodule Enux.Json do
   defp map_to_keyword_list(map, opts) when is_map(map) do
     map
     |> Enum.map(fn {k, v} ->
+      k = k |> handle_number() |> handle_whitespace() |> String.to_atom()
+
       case {k, v} do
         {k, v} when is_map(v) ->
-          {k |> handle_number() |> String.to_atom(), v |> map_to_keyword_list(opts)}
+          {k, v |> map_to_keyword_list(opts)}
 
         {k, v} ->
-          {k |> handle_number() |> String.to_atom(), v |> url_encode_conditional(opts)}
+          {k, v |> url_encode_conditional(opts)}
       end
     end)
     |> Keyword.new()

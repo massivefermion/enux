@@ -16,7 +16,8 @@ defmodule Enux.Env do
     end)
     |> Enum.map(fn l -> l |> Enum.map(fn i -> String.trim(i) end) end)
     |> Enum.map(fn [k, v] ->
-      {k |> handle_number() |> String.to_atom(), v |> url_encode_conditional(opts)}
+      {k |> handle_number() |> handle_whitespace() |> String.to_atom(),
+       v |> url_encode_conditional(opts)}
     end)
   end
 end

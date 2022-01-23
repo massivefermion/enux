@@ -2,6 +2,15 @@ defmodule Enux.Utils do
   @moduledoc """
   Some useful functions
   """
+  @doc """
+  raises an error if a key contains whitespace
+  """
+  def handle_whitespace(key) when is_binary(key) do
+    case ["\t", "\s"] |> Enum.any?(fn s -> String.contains?(key, s) end) do
+      true -> raise "#{key} contains whitespace"
+      false -> key
+    end
+  end
 
   @doc """
   raises an error if a key starts with a digit
