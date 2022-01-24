@@ -24,7 +24,7 @@ defp deps do
     {:jsone, "~> 1.7"}
     # or this
     {:jiffy, "~> 1.0"}
-     # or this
+    # or this
     {:json, "~> 1.4"}
   ]
 end
