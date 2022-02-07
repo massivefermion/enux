@@ -7,7 +7,7 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 0.9.18"},
+      {:enux, "~> 0.9.19"},
 
       # if you want to load json files, you should have either this
       {:jason, "~> 1.3"}

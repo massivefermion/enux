@@ -6,21 +6,14 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "0.9.18",
+      version: "0.9.19",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       source_url: @source_url,
       description: description(),
       package: package(),
-      aliases: aliases(),
-      docs: [
-        main: "Enux",
-        api_reference: true,
-        source_url: @source_url,
-        source_ref: "main",
-        logo: "logo.png"
-      ]
+      docs: docs()
     ]
   end
 
@@ -48,13 +41,18 @@ defmodule Enux.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.24.2", only: :docs}
+      {:ex_doc, "~> 0.28", only: :dev, runtime: false}
     ]
   end
 
-  defp aliases do
+  defp docs do
     [
-      gen_docs: ["cmd MIX_ENV=docs mix docs"]
+      main: Enux,
+      api_reference: false,
+      source_url: @source_url,
+      source_ref: "main",
+      logo: "logo.png",
+      extras: ["LICENSE", "README.md"]
     ]
   end
 end
