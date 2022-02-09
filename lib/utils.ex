@@ -3,6 +3,25 @@ defmodule Enux.Utils do
   Some useful functions
   """
   @doc """
+  transforms a map into a keyword list
+  """
+  def map_to_keyword_list(map, opts) when is_map(map) do
+    map
+    |> Enum.map(fn {k, v} ->
+      k = k |> handle_number() |> handle_whitespace() |> String.to_atom()
+
+      case {k, v} do
+        {k, v} when is_map(v) ->
+          {k, v |> map_to_keyword_list(opts)}
+
+        {k, v} ->
+          {k, v |> url_encode_conditional(opts)}
+      end
+    end)
+    |> Keyword.new()
+  end
+
+  @doc """
   raises an error if a key contains whitespace
   """
   def handle_whitespace(key) when is_binary(key) do

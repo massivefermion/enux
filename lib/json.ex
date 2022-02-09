@@ -57,24 +57,11 @@ defmodule Enux.Json do
           end
         end
 
+      is_list(Application.spec(:jsonc)) ->
+        &JSONC.decode!/1
+
       true ->
         raise "No json decoder found"
     end
-  end
-
-  defp map_to_keyword_list(map, opts) when is_map(map) do
-    map
-    |> Enum.map(fn {k, v} ->
-      k = k |> handle_number() |> handle_whitespace() |> String.to_atom()
-
-      case {k, v} do
-        {k, v} when is_map(v) ->
-          {k, v |> map_to_keyword_list(opts)}
-
-        {k, v} ->
-          {k, v |> url_encode_conditional(opts)}
-      end
-    end)
-    |> Keyword.new()
   end
 end
