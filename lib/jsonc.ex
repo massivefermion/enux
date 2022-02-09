@@ -1,7 +1,6 @@
 defmodule Enux.Jsonc do
-  @moduledoc """
-  handles jsonc files
-  """
+  @moduledoc false
+
   import Enux.Utils
 
   @doc """

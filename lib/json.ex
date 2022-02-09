@@ -1,7 +1,6 @@
 defmodule Enux.Json do
-  @moduledoc """
-  handles json files
-  """
+  @moduledoc false
+
   import Enux.Utils
 
   @doc """

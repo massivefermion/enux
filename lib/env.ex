@@ -1,7 +1,6 @@
 defmodule Enux.Env do
-  @moduledoc """
-  handles env files
-  """
+  @moduledoc false
+
   import Enux.Utils
 
   @doc """

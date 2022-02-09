@@ -1,7 +1,6 @@
 defmodule Enux.Utils do
-  @moduledoc """
-  Some useful functions
-  """
+  @moduledoc false
+
   @doc """
   transforms a map into a keyword list
   """
