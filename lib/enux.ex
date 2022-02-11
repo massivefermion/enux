@@ -1,13 +1,13 @@
 defmodule Enux do
   @moduledoc """
-  Helper module to load, validate and document your app's configuration from env, json and jsonc files at runtime.
+  utility package for loading, validating and documenting your app's configuration from env, json and jsonc files at runtime.
 
   ## Installation
 
   ```
   defp deps do
     [
-      {:enux, "~> 1.0.2"},
+      {:enux, "~> 1.0.3"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files

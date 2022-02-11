@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.0.2",
+      version: "1.0.3",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -18,7 +18,7 @@ defmodule Enux.MixProject do
   end
 
   defp description() do
-    "Helper module to load, validate and document your app's configuration from env, json and jsonc files at runtime."
+    "utility package for loading, validating and documenting your app's configuration from env, json and jsonc files at runtime."
   end
 
   defp package do
