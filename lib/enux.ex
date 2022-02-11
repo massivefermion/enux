@@ -1,13 +1,14 @@
 defmodule Enux do
   @moduledoc """
-  utility package for loading, validating and documenting your app's configuration from env, json and jsonc files at runtime.
+  utility package for loading, validating and documenting your app's configuration variables from env, json and jsonc files at runtime and injecting them into your environment
+
 
   ## Installation
 
   ```
   defp deps do
     [
-      {:enux, "~> 1.0.3"},
+      {:enux, "~> 1.0.4"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files
