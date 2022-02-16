@@ -10,7 +10,7 @@ defmodule Enux.Utils do
       k = k |> handle_number() |> handle_whitespace() |> String.to_atom()
 
       case {k, v} do
-        {k, v} when is_map(v) ->
+        {k, v} when is_map(v) and not is_struct(v) ->
           {k, v |> map_to_keyword_list(opts)}
 
         {k, v} ->

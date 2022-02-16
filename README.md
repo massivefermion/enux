@@ -1,6 +1,6 @@
 # Enux
 
-utility package for loading, validating and documenting your app's configuration variables from env, json and jsonc files at runtime and injecting them into your environment
+utility package for loading, validating and documenting your app's configuration variables from env, json, jsonc and toml files at runtime and injecting them into your environment
 
 ## Installation
 
@@ -9,7 +9,10 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 defp deps do
   [
-    {:enux, "~> 1.0.4"},
+    {:enux, "~> 1.1.0"},
+
+    # if you want to load `.toml` files, you should have this
+    {:toml, "~> 0.6.2"},
 
     # if you want to load `.jsonc` files, you should have this
     # you can also use this for `.json` files

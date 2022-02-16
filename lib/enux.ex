@@ -1,6 +1,6 @@
 defmodule Enux do
   @moduledoc """
-  utility package for loading, validating and documenting your app's configuration variables from env, json and jsonc files at runtime and injecting them into your environment
+  utility package for loading, validating and documenting your app's configuration variables from env, json, jsonc and toml files at runtime and injecting them into your environment
 
 
   ## Installation
@@ -8,7 +8,10 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 1.0.4"},
+      {:enux, "~> 1.1.0"},
+
+      # if you want to load `.toml` files, you should have this
+      {:toml, "~> 0.6.2"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files
@@ -49,6 +52,7 @@ defmodule Enux do
   in your dependencies if you want to use `.json` files.
 
   To use `.jsonc` files, you should have [jsonc](https://hex.pm/packages/jsonc). You can also use this package for `.json` files.
+  To use `.toml` files, you should have [toml](https://hex.pm/packages/toml).
 
   You can load multiple files of different kinds:
   ```
@@ -61,12 +65,12 @@ defmodule Enux do
   config :otp_app, :two, env2
   ```
 
-  Another way of using Enux is using the `Enux.autoload` function which will load all `.env`, `.json` and `.jsonc` files in your `config` directory.
+  Another way of using Enux is using the `Enux.autoload` function which will load all `.env`, `.json`, `.jsonc` and `.toml` files in your `config` directory.
   it makes more sense to call this function in your `config/runtime.exs` but you can call it anywhere in your code.
 
   If you have `config/pg.env` and `config/redis.json` in your project directory, after calling `Enux.autoload(:otp_app)`, you can access the variables
-  using `Application.get_env(:otp_app, :pg)` and `Application.get_env(:otp_app, :redis)`. if a file is named `.env` or `.json` or `.jsonc`, you should use
-  `Application.get_env(:otp_app, :env)` or `Application.get_env(:otp_app, :json)` or `Application.get_env(:otp_app, :jsonc)` respectively.
+  using `Application.get_env(:otp_app, :pg)` and `Application.get_env(:otp_app, :redis)`. if a file is named `.env` or `.json` or `.jsonc` or `.toml`, you should use
+  `Application.get_env(:otp_app, :env)` or `Application.get_env(:otp_app, :json)` or `Application.get_env(:otp_app, :jsonc)` or `Application.get_env(:otp_app, :toml)` respectively.
   ```
   Enux.autoload(:otp_app)
   ```
@@ -93,6 +97,7 @@ defmodule Enux do
   alias Enux.Env
   alias Enux.Json
   alias Enux.Jsonc
+  alias Enux.Toml
 
   @doc """
   reads the variables in `config/.env` and returns a formatted keyword list.
@@ -110,31 +115,32 @@ defmodule Enux do
   end
 
   @doc """
-  reads the variables in the given path(could be `.env` or `.json` or `.jsonc` file) and returns a formatted keyword list
+  reads the variables in the given path(could be `.env`, `.json`, `.jsonc` or `.toml` file) and returns a formatted keyword list
   """
   def load(path, opts \\ []) when is_binary(path) and is_list(opts) do
     case String.split(path, ".") |> Enum.at(1) |> String.to_atom() do
       :env -> File.stream!(path, [], :line) |> Env.decode(opts)
       :json -> File.read!(path) |> Json.decode(opts)
       :jsonc -> File.read!(path) |> Jsonc.decode(opts)
+      :toml -> File.read!(path) |> Toml.decode(opts)
       ext -> raise "unsupported file type: #{ext}"
     end
   end
 
   @doc """
-  automatically loads all `.env`, `.json` and `.jsonc` files in your `config` directory.
+  automatically loads all `.env`, `.json`, `.jsonc` and `.toml` files in your `config` directory.
   pass your project's name as an atom. you can also still pass `url_encoded: true` to it.
   """
   def autoload(app, opts \\ []) when is_atom(app) and is_list(opts) do
     files =
       File.ls!("config")
       |> Enum.map(fn f -> f |> String.split(".") end)
-      |> Enum.filter(fn [_, ext] -> ext in ["env", "json", "jsonc"] end)
+      |> Enum.filter(fn [_, ext] -> ext in ["env", "json", "jsonc", "toml"] end)
       |> Enum.map(fn f -> Enum.join(f, ".") end)
 
     cond do
       Enum.empty?(files) ->
-        raise "There is no `.env` or `.json` or `.jsonc` file in your config directory"
+        raise "There is no `.env`, `.json`, `.jsonc` or `.toml` file in your config directory"
 
       true ->
         files
@@ -150,6 +156,9 @@ defmodule Enux do
 
               ".jsonc" ->
                 :jsonc
+
+              ".toml" ->
+                :toml
 
               _ ->
                 String.split(f, ".") |> Enum.at(0) |> String.to_atom()
