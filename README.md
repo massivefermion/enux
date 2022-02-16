@@ -9,10 +9,7 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 defp deps do
   [
-    {:enux, "~> 1.1.0"},
-
-    # if you want to load `.toml` files, you should have this
-    {:toml, "~> 0.6.2"},
+    {:enux, "~> 1.1.1"},
 
     # if you want to load `.jsonc` files, you should have this
     # you can also use this for `.json` files
@@ -32,6 +29,12 @@ defp deps do
     {:jiffy, "~> 1.0"}
     # or this
     {:json, "~> 1.4"}
+
+
+    # if you want to load `.toml` files, you should have either this
+    {:toml, "~> 0.6.2"},
+    # or this
+    {:tomerl, "~> 0.5.0"}
   ]
 end
 ```

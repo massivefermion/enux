@@ -21,6 +21,14 @@ defmodule Enux.Toml do
       is_list(Application.spec(:toml)) ->
         &Toml.decode!/1
 
+      is_list(Application.spec(:tomerl)) ->
+        fn input ->
+          case :tomerl.parse(input) do
+            {:ok, result} -> result
+            {:error, _} -> raise "tomerl decode error"
+          end
+        end
+
       true ->
         raise "No toml decoder found"
     end

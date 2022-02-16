@@ -8,10 +8,7 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 1.1.0"},
-
-      # if you want to load `.toml` files, you should have this
-      {:toml, "~> 0.6.2"},
+      {:enux, "~> 1.1.1"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files
@@ -31,6 +28,11 @@ defmodule Enux do
       {:jiffy, "~> 1.0"}
       # or this
       {:json, "~> 1.4"}
+
+      # if you want to load `.toml` files, you should have either this
+      {:toml, "~> 0.6.2"},
+      # or this
+      {:tomerl, "~> 0.5.0"}
     ]
   end
   ```
@@ -52,7 +54,7 @@ defmodule Enux do
   in your dependencies if you want to use `.json` files.
 
   To use `.jsonc` files, you should have [jsonc](https://hex.pm/packages/jsonc). You can also use this package for `.json` files.
-  To use `.toml` files, you should have [toml](https://hex.pm/packages/toml).
+  To use `.toml` files, you should have either [toml](https://hex.pm/packages/toml) or [tomerl](https://hex.pm/packages/tomerl).
 
   You can load multiple files of different kinds:
   ```
