@@ -7,7 +7,12 @@ defmodule Enux.Utils do
   def map_to_keyword_list(map, opts) when is_map(map) do
     map
     |> Enum.map(fn {k, v} ->
-      k = k |> handle_number() |> handle_whitespace() |> String.to_atom()
+      k =
+        if is_binary(k) do
+          k |> handle_number() |> handle_whitespace() |> String.to_atom()
+        else
+          k
+        end
 
       case {k, v} do
         {k, v} when is_map(v) and not is_struct(v) ->

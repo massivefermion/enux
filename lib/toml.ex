@@ -29,6 +29,9 @@ defmodule Enux.Toml do
           end
         end
 
+      is_list(Application.spec(:tomlex)) ->
+        &Tomlex.load/1
+
       true ->
         raise "No toml decoder found"
     end

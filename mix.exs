@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.1.2",
+      version: "1.1.3",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -36,9 +36,7 @@ defmodule Enux.MixProject do
   end
 
   defp deps do
-    [
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false}
-    ]
+    [{:ex_doc, "~> 0.28", only: :dev, runtime: false}]
   end
 
   defp docs do
