@@ -9,7 +9,7 @@ The package can be installed by adding `enux` to your list of dependencies in `m
 ```elixir
 defp deps do
   [
-    {:enux, "~> 1.1.3"},
+    {:enux, "~> 1.2"},
 
     # if you want to load `.jsonc` files, you should have this
     # you can also use this for `.json` files
