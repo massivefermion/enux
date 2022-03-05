@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.2.0",
+      version: "1.2.1",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -40,21 +40,21 @@ defmodule Enux.MixProject do
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
 
       # jsonc parser
-      {:jsonc, "~> 0.2", optional: true},
+      {:jsonc, "~> 0.3", optional: true},
 
       # json parsers
+      {:json, "~> 1.4", optional: true},
       {:jason, "~> 1.3", optional: true},
-      {:poison, "~> 5.0", optional: true},
       {:jaxon, "~> 2.0", optional: true},
       {:thoas, "~> 0.2", optional: true},
       {:jsone, "~> 1.7", optional: true},
       {:jiffy, "~> 1.1", optional: true},
-      {:json, "~> 1.4", optional: true},
+      {:poison, "~> 5.0", optional: true},
 
       # toml parsers  
-      {:toml, "~> 0.6.2", optional: true},
-      {:tomerl, "~> 0.5.0", optional: true},
-      {:tomlex, "~> 0.0.5", optional: true}
+      {:toml, "~> 0.6", optional: true},
+      {:tomerl, "~> 0.5", optional: true},
+      {:tomlex, "~> 0.0", optional: true}
     ]
   end
 
