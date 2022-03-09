@@ -8,11 +8,11 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 1.2.3"},
+      {:enux, "~> 1.2.4"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files
-      {:jsonc, "~> 0.5"},
+      {:jsonc, "~> 0.6"},
 
       # if you want to load `.json` files, you should have either this
       {:json, "~> 1.4"}
