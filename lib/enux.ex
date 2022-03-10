@@ -8,7 +8,7 @@ defmodule Enux do
   ```
   defp deps do
     [
-      {:enux, "~> 1.2.5"},
+      {:enux, "~> 1.3"},
 
       # if you want to load `.jsonc` files, you should have this
       # you can also use this for `.json` files
@@ -38,6 +38,7 @@ defmodule Enux do
     ]
   end
   ```
+
   ## Usage
 
   In elixir 1.11, `config/runtime.exs` was introduced. This is a file that is executed exactly before your application starts.
@@ -69,6 +70,8 @@ defmodule Enux do
   config :otp_app, :two, env2
   ```
 
+  ### automatic loading
+
   Another way of using Enux is using the `Enux.autoload` function which will load all `.env`, `.json`, `.jsonc` and `.toml` files in your `config` directory.
   it makes more sense to call this function in your `config/runtime.exs` but you can call it anywhere in your code.
 
@@ -78,6 +81,16 @@ defmodule Enux do
   ```
   Enux.autoload(:otp_app)
   ```
+
+  ### multiple environments
+
+  Using the `MIX_ENV` environmental variable you can adjust which files `Enux.autoload` loads into your app. If `MIX_ENV` is not specified, `dev` will be assumed.
+  The only thing you need to do is specifying the environment in the name of each file like `db-staging.env`, `redis-prod.jsonc` or `rabbitmq-unit-tests.toml`.
+  But after the file is loaded, you can access the variables using e.g. `Application.get_env(:otp_app, :db) or Application.get_env(:otp_app, :redis)` or
+  `Application.get_env(:otp_app, :rabbitmq)`.
+  If a file doesn't have `-` in its name, `Enux.autoload` will load it regardless of the value of `MIX_ENV`.
+
+  ### environment validation
 
   You may also use `Enux.expect` to both validate and document your required environment. first you need to define a schema:
   ```
@@ -140,6 +153,15 @@ defmodule Enux do
       File.ls!("config")
       |> Enum.map(fn f -> f |> String.split(".") end)
       |> Enum.filter(fn [_, ext] -> ext in ["env", "json", "jsonc", "toml"] end)
+      |> Enum.filter(fn [filename, _] ->
+        mix_env = System.get_env("MIX_ENV", "dev")
+
+        case String.split(filename, "-") do
+          [_] -> true
+          [_, env] when env == mix_env -> true
+          [_ | env_parts] -> Enum.join(env_parts, "-") == mix_env
+        end
+      end)
       |> Enum.map(fn f -> Enum.join(f, ".") end)
 
     cond do
@@ -149,26 +171,33 @@ defmodule Enux do
       true ->
         files
         |> Enum.map(fn f -> [f, Enux.load("config/#{f}", opts)] end)
-        |> Enum.each(fn [f, kwl] ->
-          key =
-            case f do
-              ".env" ->
-                :env
+        |> Enum.map(fn [f, kwl] ->
+          case f do
+            ".env" ->
+              ["env", kwl]
 
-              ".json" ->
-                :json
+            ".json" ->
+              ["json", kwl]
 
-              ".jsonc" ->
-                :jsonc
+            ".jsonc" ->
+              ["jsonc", kwl]
 
-              ".toml" ->
-                :toml
+            ".toml" ->
+              ["toml", kwl]
 
-              _ ->
-                String.split(f, ".") |> Enum.at(0) |> String.to_atom()
-            end
-
-          Application.put_env(app, key, kwl)
+            _ ->
+              [String.split(f, ".") |> Enum.at(0), kwl]
+          end
+        end)
+        |> Enum.map(fn [key, kwl] ->
+          case String.split(key, "-") do
+            [key] -> [key, kwl]
+            [key, _] -> [key, kwl]
+            [key | _] -> [key, kwl]
+          end
+        end)
+        |> Enum.each(fn [key, kwl] ->
+          Application.put_env(app, key |> String.to_atom(), kwl)
         end)
     end
   end
