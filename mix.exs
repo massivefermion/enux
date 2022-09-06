@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.3.1",
+      version: "1.3.2",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -46,7 +46,7 @@ defmodule Enux.MixProject do
       {:json, "~> 1.4", optional: true},
       {:jason, "~> 1.3", optional: true},
       {:jaxon, "~> 2.0", optional: true},
-      {:thoas, "~> 0.2", optional: true},
+      {:thoas, "~> 0.4", optional: true},
       {:jsone, "~> 1.7", optional: true},
       {:jiffy, "~> 1.1", optional: true},
       {:poison, "~> 5.0", optional: true},
