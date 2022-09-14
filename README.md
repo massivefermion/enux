@@ -18,11 +18,11 @@ defp deps do
     # if you want to load `.json` files, you should have either this
     {:json, "~> 1.4"}
     # or this
-    {:jason, "~> 1.3"}
+    {:jason, "~> 1.4"}
     # or this
     {:jaxon, "~> 2.0"}
     # or this
-    {:thoas, "~> 0.2"}
+    {:thoas, "~> 0.4"}
     # or this
     {:jsone, "~> 1.7"}
     # or this
