@@ -11,7 +11,7 @@ defmodule Enux.Toml do
     decoded = decode.(content)
 
     cond do
-      is_map(decoded) -> decoded |> map_to_keyword_list(opts)
+      is_map(decoded) -> map_to_keyword_list(decoded, opts)
       true -> decoded
     end
   end

@@ -13,10 +13,10 @@ defmodule Enux.Env do
     |> Enum.map(fn l ->
       Regex.run(~r/(?<k>[A-Za-z0-9_\s]+)=(?<v>.*)/, l, capture: :all_but_first)
     end)
-    |> Enum.map(fn l -> l |> Enum.map(fn i -> String.trim(i) end) end)
+    |> Enum.map(fn l -> Enum.map(l, fn i -> String.trim(i) end) end)
     |> Enum.map(fn [k, v] ->
       {k |> handle_number() |> handle_whitespace() |> String.to_atom(),
-       v |> url_encode_conditional(opts)}
+       url_encode_conditional(v, opts)}
     end)
   end
 end

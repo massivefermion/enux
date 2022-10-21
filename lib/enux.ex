@@ -197,7 +197,7 @@ defmodule Enux do
           end
         end)
         |> Enum.each(fn [key, kwl] ->
-          Application.put_env(app, key |> String.to_atom(), kwl)
+          Application.put_env(app, String.to_atom(key), kwl)
         end)
     end
   end
@@ -228,9 +228,8 @@ defmodule Enux do
 
   defp check(env, schema, parents \\ [])
        when is_list(env) and is_list(schema) and is_list(parents) do
-    schema
-    |> Enum.each(fn {key, sub_schema} ->
-      case env |> Keyword.get(key) do
+    Enum.each(schema, fn {key, sub_schema} ->
+      case Keyword.get(env, key) do
         nil ->
           raise "your environment should contain #{parents |> Enum.reverse() |> Enum.join(".")}.#{key}"
 
@@ -248,8 +247,7 @@ defmodule Enux do
 
   defp check_item(value, conditions, parents)
        when is_list(conditions) and is_list(parents) do
-    conditions
-    |> Enum.each(fn c ->
+    Enum.each(conditions, fn c ->
       case check_item(value, c) do
         false ->
           raise "condition #{inspect(c)} was not met for #{parents |> Enum.reverse() |> Enum.join(".")}"

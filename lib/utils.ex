@@ -5,21 +5,22 @@ defmodule Enux.Utils do
   transforms a map into a keyword list
   """
   def map_to_keyword_list(map, opts) when is_map(map) do
-    map
-    |> Enum.map(fn {k, v} ->
+    Enum.map(map, fn {k, v} ->
       k =
-        if is_binary(k) do
-          k |> handle_number() |> handle_whitespace() |> String.to_atom()
-        else
-          k
+        case is_binary(k) do
+          true ->
+            k |> handle_number() |> handle_whitespace() |> String.to_atom()
+
+          false ->
+            k
         end
 
       case {k, v} do
         {k, v} when is_map(v) and not is_struct(v) ->
-          {k, v |> map_to_keyword_list(opts)}
+          {k, map_to_keyword_list(v, opts)}
 
         {k, v} ->
-          {k, v |> url_encode_conditional(opts)}
+          {k, url_encode_conditional(v, opts)}
       end
     end)
     |> Keyword.new()
@@ -50,8 +51,8 @@ defmodule Enux.Utils do
   """
   def url_encode_conditional(value, opts)
       when is_binary(value) and is_list(opts) do
-    case opts |> Keyword.get(:url_encoded, false) do
-      true -> value |> URI.encode()
+    case Keyword.get(opts, :url_encoded, false) do
+      true -> URI.encode(value)
       false -> value
     end
   end

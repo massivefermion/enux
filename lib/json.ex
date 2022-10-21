@@ -11,7 +11,7 @@ defmodule Enux.Json do
     decoded = decode.(content)
 
     cond do
-      is_map(decoded) -> decoded |> map_to_keyword_list(opts)
+      is_map(decoded) -> map_to_keyword_list(decoded, opts)
       true -> decoded
     end
   end
@@ -51,7 +51,7 @@ defmodule Enux.Json do
             {:error, error} ->
               case is_tuple(error) do
                 true -> raise error |> elem(0) |> to_string()
-                false -> raise error |> to_string()
+                false -> raise to_string(error)
               end
           end
         end
