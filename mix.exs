@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.3.3",
+      version: "1.4",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -40,7 +40,7 @@ defmodule Enux.MixProject do
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
 
       # jsonc parser
-      {:jsonc, "~> 0.8", optional: true},
+      {:jsonc, "~> 0.9", optional: true},
 
       # json parsers
       {:json, "~> 1.4", optional: true},
