@@ -37,7 +37,7 @@ defmodule Enux.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.29", only: :dev, runtime: false},
 
       # jsonc parser
       {:jsonc, "~> 0.9", optional: true},
