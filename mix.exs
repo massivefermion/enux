@@ -6,7 +6,7 @@ defmodule Enux.MixProject do
   def project do
     [
       app: :enux,
-      version: "1.4.0",
+      version: "1.4.1",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -52,7 +52,7 @@ defmodule Enux.MixProject do
       {:poison, "~> 5.0", optional: true},
 
       # toml parsers  
-      {:toml, "~> 0.6", optional: true},
+      {:toml, "~> 0.7", optional: true},
       {:tomerl, "~> 0.5", optional: true},
       {:tomlex, "~> 0.0", optional: true}
     ]

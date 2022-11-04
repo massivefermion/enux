@@ -32,7 +32,7 @@ defp deps do
 
 
     # if you want to load `.toml` files, you should have either this
-    {:toml, "~> 0.6"}
+    {:toml, "~> 0.7"}
     # or this
     {:tomerl, "~> 0.5"}
     # or this
