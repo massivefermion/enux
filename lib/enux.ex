@@ -21,9 +21,9 @@ defmodule Enux do
       # or this
       {:jaxon, "~> 2.0"}
       # or this
-      {:thoas, "~> 0.4"}
+      {:thoas, "~> 1.0"}
       # or this
-      {:jsone, "~> 1.7"}
+      {:jsone, "~> 1.8"}
       # or this
       {:jiffy, "~> 1.1"}
       # or this
