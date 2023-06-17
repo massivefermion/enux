@@ -18,6 +18,9 @@ defmodule Enux.Json do
 
   defp get_decode_function do
     cond do
+      is_list(Application.spec(:jsonrs)) ->
+        &Jsonrs.decode!/1
+
       is_list(Application.spec(:jason)) ->
         &Jason.decode!/1
 
