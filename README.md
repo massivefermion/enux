@@ -30,15 +30,13 @@ defp deps do
     # or this
     {:poison, "~> 5.0"}
     # or this
-    {:thoas, "~> 1.0"}
+    {:thoas, "~> 1.2"}
 
 
     # if you want to load `.toml` files, you should have either this
-    {:toml, "~> 0.7"}
-    # or this
     {:tomerl, "~> 0.5"}
     # or this
-    {:tomlex, "~> 0.0"}
+    {:toml, "~> 0.7"}
   ]
 end
 ```
