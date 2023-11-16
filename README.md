@@ -16,6 +16,8 @@ defp deps do
     {:jsonc, "~> 0.9"},
 
     # if you want to load `.json` files, you should have either this
+    {:euneus, "~> 1.0"}
+    # or this
     {:jason, "~> 1.4"}
     # or this
     {:jaxon, "~> 2.0"}

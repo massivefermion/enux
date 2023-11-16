@@ -15,6 +15,9 @@ defmodule Enux do
       {:jsonc, "~> 0.9"},
 
       # if you want to load `.json` files, you should have either this
+      
+      {:euneus, "~> 1.0"}
+      # or this
       {:jason, "~> 1.4"}
       # or this
       {:jaxon, "~> 2.0"}
@@ -54,7 +57,7 @@ defmodule Enux do
 
   You should have either [poison](https://hex.pm/packages/poison) or [jason](https://hex.pm/packages/jason) or [jaxon](https://hex.pm/packages/jaxon)
   or [thoas](https://hex.pm/packages/thoas) or [jsone](https://hex.pm/packages/jsone) or [jiffy](https://hex.pm/packages/jiffy) or [json](https://hex.pm/packages/json) or
-  [jsonrs](https://hex.pm/packages/jsonrs) in your dependencies if you want to use `.json` files.
+  [jsonrs](https://hex.pm/packages/jsonrs) or [euneus](https://hex.pm/packages/euneus) in your dependencies if you want to use `.json` files.
 
   To use `.jsonc` files, you should have [jsonc](https://hex.pm/packages/jsonc). You can also use this package for `.json` files.
   To use `.toml` files, you should have either [toml](https://hex.pm/packages/toml) or [tomerl](https://hex.pm/packages/tomerl) or [tomlex](https://hex.pm/packages/tomlex).

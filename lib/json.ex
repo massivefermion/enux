@@ -43,6 +43,22 @@ defmodule Enux.Json do
           decode.(input, [:return_maps, :use_nil, :copy_strings])
         end
 
+      is_list(Application.spec(:euneus)) ->
+        decode = &:euneus.decode/1
+
+        fn input ->
+          case decode.(input) do
+            {:ok, output} ->
+              output
+
+            {:error, error} ->
+              case is_tuple(error) do
+                true -> raise error |> elem(0) |> to_string()
+                false -> raise to_string(error)
+              end
+          end
+        end
+
       is_list(Application.spec(:thoas)) ->
         decode = &:thoas.decode/1
 
