@@ -60,4 +60,8 @@ defmodule Enux.Utils do
   def url_encode_conditional(value, _opts) do
     value
   end
+
+  def has_native_json_module do
+    :otp_release |> :erlang.system_info() |> :erlang.list_to_integer() >= 27
+  end
 end

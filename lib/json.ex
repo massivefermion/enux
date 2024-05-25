@@ -78,6 +78,9 @@ defmodule Enux.Json do
       is_list(Application.spec(:jsonc)) ->
         &JSONC.decode!/1
 
+      has_native_json_module() ->
+        &:json.decode/1
+
       true ->
         raise "No json decoder found"
     end
