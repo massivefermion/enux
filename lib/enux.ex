@@ -21,8 +21,6 @@ defmodule Enux do
       # or this
       {:jaxon, "~> 2.0"}
       # or this
-      {:jiffy, "~> 1.1"}
-      # or this
       {:json, "~> 1.4"}
       # or this
       {:jsone, "~> 1.8"}
@@ -56,7 +54,7 @@ defmodule Enux do
   If you need to url encode your configuration values, just pass `url_encoded: true` to `Enux.load`.
 
   You should have either [poison](https://hex.pm/packages/poison) or [jason](https://hex.pm/packages/jason) or [jaxon](https://hex.pm/packages/jaxon)
-  or [thoas](https://hex.pm/packages/thoas) or [jsone](https://hex.pm/packages/jsone) or [jiffy](https://hex.pm/packages/jiffy) or [json](https://hex.pm/packages/json) or
+  or [thoas](https://hex.pm/packages/thoas) or [jsone](https://hex.pm/packages/jsone) or [json](https://hex.pm/packages/json) or
   [jsonrs](https://hex.pm/packages/jsonrs) or [euneus](https://hex.pm/packages/euneus) in your dependencies or use Erlang/OTP version 27 or higher
   if you want to use `.json` files. Priority is given to the dependencies, so if you want to use Erlang's own `json` module, don't add any of the
   mentioned packages.

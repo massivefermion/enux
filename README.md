@@ -22,8 +22,6 @@ defp deps do
     # or this
     {:jaxon, "~> 2.0"}
     # or this
-    {:jiffy, "~> 1.1"}
-    # or this
     {:json, "~> 1.4"}
     # or this
     {:jsone, "~> 1.8"}

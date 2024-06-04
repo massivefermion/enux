@@ -36,13 +36,6 @@ defmodule Enux.Json do
       is_list(Application.spec(:jsone)) ->
         &:jsone.decode/1
 
-      is_list(Application.spec(:jiffy)) ->
-        decode = &:jiffy.decode/2
-
-        fn input ->
-          decode.(input, [:return_maps, :use_nil, :copy_strings])
-        end
-
       is_list(Application.spec(:euneus)) ->
         decode = &:euneus.decode/1
 
